@@ -1,46 +1,49 @@
-<body>
+<script>
+    import Cancion from '../lib/components/Cancion.svelte';
+</script>
 
-    <header>
+    <header class="bg-[#FFFFF]">
 <div>
-<img src="" alt="">
+<img src="" alt="Logo de Aura Music">
 <p>Aura Music</p>
 </div> 
 
 <div>
-<a href=""></a>
-<a href=""></a>
+        <a href="">Iniciar sesión</a>
+        <a href="">Crear cuenta</a>
 </div>
 
     </header>
 
 
-    <main>
+    <main class="bg-[#EDF1FD]">
     <!-- reproductor de musica -->
          <div> 
             <!-- album -->
             <div>
-                <img src="" alt="">
+                <img src="" alt="Portada del álbum">
             </div>
 
             <!-- Información y controlesnfromacion  -->
 
             <div>
                 <div>
-                    <h2></h2>
-                    <p></p>
+                    <h2>nombre de la cancion</h2>
+                    <p>nombre del artista</p>
                 </div> 
                 
                  <div>
+                    <span>00:00'</span>
                     <input type="range">
-                    <span></span>
+                    <span>03:55</span>
                 </div>
 
                  <div>
-                    <button></button>
-                    <button></button>
-                    <button></button>
-                    <button></button>
-                    <button></button>
+                    <button>Aleatorio</button>
+                    <button>Anterior canción</button>
+                    <button>Pausa/Reproducir</button>
+                    <button>Siguiente canción</button>
+                    <button>Bucle</button>
                 </div>
             </div>
 
@@ -50,20 +53,21 @@
          <div> 
             <div> 
                 <h2>lista de reproduccion</h2> 
-                <p></p>
+                <p> 4 canciones 14 minutos </p>
                 <img src="" alt="logo de reproduccion">
 
 
             </div> 
 
             <div>
-                cancion 1
-                cancion 2 
-                cancion 3
-                cancion 4
+                <Cancion />
+                <Cancion />
+                <Cancion />
+                <Cancion />
             </div>
 
          </div>
     </main>
 
-</body>
+
+
