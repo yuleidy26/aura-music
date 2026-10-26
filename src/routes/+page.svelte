@@ -2,43 +2,47 @@
     import Cancion from '../lib/components/Cancion.svelte';
 </script>
 
-    <header class="bg-[#FFFFF]">
-<div>
-<img src="" alt="Logo de Aura Music">
-<p>Aura Music</p>
-</div> 
+<section class="bg-[#EDF1FD]">
 
-<div>
+    <header class="flex justify-between items-center px-6 py-4 border-b border-[#C9C6D9]">
+
+     <div class="flex items-center gap-2">
+        <img src="" alt="Logo de Aura Music" class="w-8 h-8">
+        <span class="font-bold text-lg">Aura Music</span>
+
+    </div>
+
+     <div class="flex gap-4">
         <a href="">Iniciar sesión</a>
         <a href="">Crear cuenta</a>
-</div>
+    </div>
 
     </header>
 
 
-    <main class="bg-[#EDF1FD]">
+    <main class="flex gap-8 items-center justify-center p-8">
     <!-- reproductor de musica -->
-         <div> 
+         <div class="bg-[#FFFFFF] flex flex-col items-center px-2 py-4 gap-4 rounded-3xl shadow-sm "> 
             <!-- album -->
-            <div>
+            <div class="rounded-2xl overflow-hidden">
                 <img src="" alt="Portada del álbum">
             </div>
 
             <!-- Información y controlesnfromacion  -->
 
-            <div>
-                <div>
-                    <h2>nombre de la cancion</h2>
-                    <p>nombre del artista</p>
+            <div class="">
+                <div class="flex flex-col">
+                    <h2 class="font-bold text-xl">nombre de la cancion</h2>
+                    <p class=" text-xs text-[#4A4550]">nombre del artista</p>
                 </div> 
                 
-                 <div>
-                    <span>00:00'</span>
-                    <input type="range">
-                    <span>03:55</span>
+                 <div class="flex items-center gap-3 w-full">
+                    <span class="text-[#7B7582] text-xs">00:00</span>
+                    <input type="range" class="w-full">
+                    <span class="text-[#7B7582] text-xs">03:00</span>
                 </div>
 
-                 <div>
+                 <div class="flex justify-between items-center gap-6 mt-4">
                     <button>Aleatorio</button>
                     <button>Anterior canción</button>
                     <button>Pausa/Reproducir</button>
@@ -50,10 +54,10 @@
          </div> 
 
     <!-- lista de reproduccion -->
-         <div> 
+         <div class="bg-[#FFFFFF] flex flex-col items-center px-2 py-4 gap-4 rounded-3xl shadow-sm"> 
             <div> 
-                <h2>lista de reproduccion</h2> 
-                <p> 4 canciones 14 minutos </p>
+                <h2 class="font-bold text-xl">Lista de Reproducción</h2> 
+                <p class="text-[#7B7582] text-xs"> 4 canciones • 14 min</p>
                 <img src="" alt="logo de reproduccion">
 
 
@@ -70,4 +74,4 @@
     </main>
 
 
-
+</section>
