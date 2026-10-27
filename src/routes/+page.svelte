@@ -89,10 +89,10 @@
         </div>
 
             <div class="flex flex-col gap-3 w-full">
-                <Cancion />
-                <Cancion />
-                <Cancion />
-                <Cancion />
+                <Cancion portada="/cuco.webp" artista="Cuco" />
+                <Cancion portada="/scott.webp" artista="Scott" />
+                <Cancion portada="/weezer.webp" artista="Weezer" />
+                <Cancion portada="/feist.webp" artista="Feist" />
             </div>
         </div>
     </main>
