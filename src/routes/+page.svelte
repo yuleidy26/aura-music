@@ -20,9 +20,9 @@
     </header>
 
 
-    <main class="flex gap-8 items-center justify-center p-8">
+    <main class="flex items-start justify-center gap-7 p-7">
     <!-- reproductor de musica -->
-         <div class="bg-[#FFFFFF] flex flex-col items-center px-2 py-4 gap-4 rounded-3xl shadow-sm "> 
+         <div class="w-[600px] shrink-0 bg-white flex flex-col gap-6 rounded-[40px] p-9 shadow-sm"> 
             <!-- album -->
             <div class="rounded-2xl overflow-hidden">
                 <img src="" alt="Portada del álbum">
@@ -54,7 +54,7 @@
          </div> 
 
     <!-- lista de reproduccion -->
-         <div class="bg-[#FFFFFF] flex flex-col items-center px-2 py-4 gap-4 rounded-3xl shadow-sm"> 
+         <div class="w-[420px] bg-white flex flex-col gap-6 rounded-[40px] p-9 shadow-sm">
             <div> 
                 <h2 class="font-bold text-xl">Lista de Reproducción</h2> 
                 <p class="text-[#7B7582] text-xs"> 4 canciones • 14 min</p>
