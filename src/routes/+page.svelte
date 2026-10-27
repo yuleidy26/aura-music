@@ -24,22 +24,25 @@
     <!-- reproductor de musica -->
          <div class="w-[600px] shrink-0 bg-white flex flex-col gap-6 rounded-[40px] p-9 shadow-sm"> 
             <!-- album -->
-            <div class="rounded-2xl overflow-hidden">
-                <img src="" alt="Portada del álbum">
+            <div class="w-full flex justify-center">
+            <img src="" alt="Portada del álbum"
+            class="w-full max-w-[390px] aspect-square object-cover rounded-3xl">
             </div>
 
             <!-- Información y controlesnfromacion  -->
 
-            <div class="">
+            <div class="w-full flex flex-col gap-4">
                 <div class="flex flex-col">
                     <h2 class="font-bold text-xl">nombre de la cancion</h2>
                     <p class=" text-xs text-[#4A4550]">nombre del artista</p>
                 </div> 
                 
-                 <div class="flex items-center gap-3 w-full">
-                    <span class="text-[#7B7582] text-xs">00:00</span>
-                    <input type="range" class="w-full">
-                    <span class="text-[#7B7582] text-xs">03:00</span>
+                <div class="flex flex-col gap-2 w-full">
+                    <input type="range" class="w-full accent-pink-400">
+                    <div class="flex justify-between">
+                        <span class="text-[#7B7582] text-xs">00:00</span>
+                        <span class="text-[#7B7582] text-xs">03:00</span>
+                    </div>
                 </div>
 
                  <div class="flex justify-between items-center gap-6 mt-4">
