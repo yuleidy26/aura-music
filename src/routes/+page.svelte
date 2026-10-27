@@ -1,5 +1,6 @@
 <script>
-    import Cancion from '../lib/components/Cancion.svelte';
+  import Cancion from '../lib/components/Cancion.svelte';
+  import Icon from '@iconify/svelte';
 </script>
 
 <section class="min-h-screen bg-[#EDF1FD]">
@@ -46,13 +47,33 @@
                     </div>
                 </div>
 
-                 <div class="flex justify-center items-center gap-5 mt-4">
-                 <button class="rounded-full bg-[#F5F2EE] px-3 py-3 text-sm">Aleatorio</button>
-                    <button class="rounded-full bg-[#F5F2EE] px-3 py-3 text-sm">Anterior canción</button>
-                    <button class="rounded-full bg-[#F5F2EE] px-3 py-3 text-sm">Pausa/Reproducir</button>
-                    <button class="rounded-full bg-[#F5F2EE] px-3 py-3 text-sm">Siguiente canción</button>
-                    <button class="rounded-full bg-[#F5F2EE] px-3 py-3 text-sm">Bucle</button>
-                </div>
+                 
+            <div class="flex justify-center items-center gap-5 mt-4">
+                <!-- Aleatorio -->
+                 <button class="rounded-full p-3 text-[#85808C] hover:bg-[#F5F2EE] transition-colors">
+                    <Icon icon="lucide:shuffle" width="20" />
+                </button>
+                <!-- Canción anterior -->
+                 <button class="rounded-full bg-[#F5F2EE] p-3 text-[#242124] hover:bg-[#EAE5E0] transition-colors">
+                    <Icon icon="lucide:skip-back" width="20" />
+                </button>
+                <!-- Reproducir -->
+                 <button class="rounded-full bg-[#FF9FC3] p-5 text-[#68134A] shadow-lg shadow-pink-200 hover:bg-[#FF8DB8] transition-colors">
+
+                    <Icon icon="lucide:pause" width="24" />
+                </button>
+                
+                <!-- Canción siguiente -->
+                 <button class="rounded-full bg-[#F5F2EE] p-3 text-[#242124] hover:bg-[#EAE5E0] transition-colors">
+                    <Icon icon="lucide:skip-forward" width="20" />
+                </button>
+                
+                <!-- Repetir -->
+                 <button class="rounded-full p-3 text-[#85808C] hover:bg-[#F5F2EE] transition-colors">
+                    <Icon icon="lucide:repeat" width="20" />
+                </button>
+            </div>
+
             </div>
 
          </div> 
