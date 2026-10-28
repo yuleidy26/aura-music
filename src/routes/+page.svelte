@@ -27,8 +27,7 @@
          <div class="w-[600px] shrink-0 bg-white flex flex-col gap-6 rounded-[40px] p-9 shadow-sm"> 
             <!-- album -->
             <div class="w-full flex justify-center">
-            <img src="" alt="Portada del álbum"
-            class="w-full max-w-[390px] aspect-square object-cover rounded-3xl">
+           <img src="/olivia.webp"alt="Portada del álbum"class="w-full max-w-[390px] aspect-square object-cover rounded-3xl"/>
             </div>
 
             <!-- Información y controles  -->
@@ -89,11 +88,10 @@
         </div>
 
             <div class="flex flex-col gap-3 w-full">
-                <Cancion portada="/cuco.webp" artista="Cuco" />
-                <Cancion portada="/scott.webp" artista="Scott" />
-                <Cancion portada="/weezer.webp" artista="Weezer" />
-                <Cancion portada="/feist.webp" artista="Feist" />
-            </div>
+                 <Cancion portada="/cuco.webp" artista="Cuco" titulo="Lover Is a Day" duracion="7:36" />
+                 <Cancion portada="/scott.webp" artista="Metric" titulo="Black Sheep" duracion="4:55" />
+                 <Cancion portada="/weezer.webp" artista="Weezer" titulo="Go Away" duracion="3:13" /><Cancion portada="/feist.webp" artista="Feist" titulo="My Moon My Man" duracion="3:48" />
+                </div>
         </div>
     </main>
 
