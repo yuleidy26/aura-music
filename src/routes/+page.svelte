@@ -94,29 +94,29 @@
             </div>
 
             <div class="flex flex-col gap-3 w-full">
-                <Cancion
-                    portada="/cuco.webp"
-                    artista="Cuco"
-                    titulo="Lover Is a Day"
-                    duracion="7:36"
-                />
-                <Cancion
-                    portada="/scott.webp"
-                    artista="Metric"
-                    titulo="Black Sheep"
-                    duracion="4:55"
-                />
-                <Cancion
-                    portada="/weezer.webp"
-                    artista="Weezer"
-                    titulo="Go Away"
-                    duracion="3:13"
-                /><Cancion
-                    portada="/feist.webp"
-                    artista="Feist"
-                    titulo="My Moon My Man"
-                    duracion="3:48"
-                />
+
+
+             {#await respuestacancion}
+             mensaje de cargando
+             {:then respuestalista}
+             {#each respuestalista.data.tracks as cancion}
+
+             <Cancion {cancion} />
+
+                
+             {/each}
+           
+             {/await}
+
+
+
+
+
+
+
+
+
+     
             </div>
         </div>
     </main>
