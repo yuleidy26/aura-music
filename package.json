@@ -27,6 +27,7 @@
 		"#lib/*": "./src/lib/*"
 	},
 	"dependencies": {
-		"@iconify/svelte": "^5.2.3"
+		"@iconify/svelte": "^5.2.3",
+		"axios": "^1.21.0"
 	}
 }
