@@ -1,6 +1,9 @@
 <script>
     import Cancion from "../lib/components/Cancion.svelte";
     import Icon from "@iconify/svelte";
+    import axios from "axios";
+
+    const respuestacancion = axios.get ('https://leonardoapi.vercel.app/api/tracks')
 </script>
 
 <section class="min-h-screen bg-[#EDF1FD]">
