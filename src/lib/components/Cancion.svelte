@@ -1,8 +1,20 @@
 <script>
+    import { actualizarCancion } from "#lib/state/cancion.svelte.js";
+
+   
+
+    
     let { cancion } = $props();
+
+    const handlerClick = () => {
+        actualizarCancion(cancion)
+
+    }
 </script>
 
-<div class="flex items-center gap-3 w-full rounded-xl p-2 hover:bg-[#F5F2F8]">
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div onclick={ handlerClick } class="flex items-center gap-3 w-full rounded-xl p-2 hover:bg-[#F5F2F8]">
     <img
         src={cancion.album.image}
         alt={`Portada de ${cancion.artist.name}`}

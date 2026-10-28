@@ -1,22 +1,29 @@
 <script>
-    import Cancion from "../lib/components/Cancion.svelte";
+    import Cancion from "#lib/components/Cancion.svelte";
+    import { estadocancion } from "#lib/state/cancion.svelte.js";
     import Icon from "@iconify/svelte";
     import axios from "axios";
 
-    const respuestacancion = axios.get ('https://leonardoapi.vercel.app/api/tracks')
+    const respuestacancion = axios.get(
+        "https://leonardoapi.vercel.app/api/tracks"
+    );
 </script>
 
 <section class="min-h-screen bg-[#EDF1FD]">
 
+    
     <main class="flex items-start justify-center gap-7 p-7">
         <!-- reproductor de musica -->
+
+        {#if estadocancion.actual}
+        
         <div
             class="w-[600px] shrink-0 bg-white flex flex-col gap-6 rounded-[40px] p-9 shadow-sm"
         >
             <!-- album -->
             <div class="w-full flex justify-center">
                 <img
-                    src="/olivia.webp"
+                    src={estadocancion.actual.album.image}
                     alt="Portada del álbum"
                     class="w-full max-w-[390px] aspect-square object-cover rounded-3xl"
                 />
@@ -26,8 +33,8 @@
 
             <div class="w-full flex flex-col gap-4">
                 <div class="flex flex-col">
-                    <h2 class="font-bold text-xl">nombre de la cancion</h2>
-                    <p class=" text-xs text-[#4A4550]">nombre del artista</p>
+                    <h2 class="font-bold text-xl">{estadocancion.actual.title}</h2>
+                    <p class=" text-xs text-[#4A4550]">{estadocancion.actual.artist.name}</p>
                 </div>
 
                 <div class="flex flex-col gap-2 w-full">
@@ -81,6 +88,12 @@
             </div>
         </div>
 
+        {:else}
+           <div
+            class="w-[600px] shrink-0 bg-white flex flex-col gap-6 rounded-[40px] p-9 shadow-sm"
+        ></div>
+        {/if}
+
         <!-- lista de reproduccion -->
         <div
             class="w-[420px] bg-white flex flex-col gap-6 rounded-[40px] p-9 shadow-sm"
@@ -94,29 +107,13 @@
             </div>
 
             <div class="flex flex-col gap-3 w-full">
-
-
-             {#await respuestacancion}
-             mensaje de cargando
-             {:then respuestalista}
-             {#each respuestalista.data.tracks as cancion}
-
-             <Cancion {cancion} />
-
-                
-             {/each}
-           
-             {/await}
-
-
-
-
-
-
-
-
-
-     
+                {#await respuestacancion}
+                    mensaje de cargando
+                {:then respuestalista}
+                    {#each respuestalista.data.tracks as cancion}
+                        <Cancion {cancion} />
+                    {/each}
+                {/await}
             </div>
         </div>
     </main>
