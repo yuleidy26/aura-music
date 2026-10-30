@@ -23,7 +23,7 @@
 
         <a
             href=""
-            class="rounded-full bg-[#FFA0C5] px-5 py-2 text-sm font-semibold text-[#5A1239] shadow-md"
+            class="rounded-full bg-[#FFA0C5] px-5 py-2 text-sm font-semibold text-[#5A1239] shadow-md shadow-pink-200"
             >Iniciar sesión</a
         >
     </div>
