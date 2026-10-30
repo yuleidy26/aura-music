@@ -108,7 +108,9 @@
 
             <div class="flex flex-col gap-3 w-full">
                 {#await respuestacancion}
-                    mensaje de cargando
+                     <div class="flex justify-center items-center py-4">
+                    <div class="w-6 h-6 border-4 border-[#F8A5C2] border-t-transparent rounded-full animate-spin"></div>
+                    </div>
                 {:then respuestalista}
                     {#each respuestalista.data.tracks as cancion}
                         <Cancion {cancion} />
