@@ -9,7 +9,7 @@
 <svelte:head>
     <link rel="icon" href={favicon} />
 </svelte:head>
-z
+
 <header
     class="flex justify-between items-center px-6 py-4 border-b border-[#C9C6D9] bg-[#EDF1FD]"
 >
