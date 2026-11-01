@@ -219,8 +219,11 @@
                     </button>
 
                     <!-- Repetir -->
-                    <button class="rounded-full p-3 text-[#85808C] hover:bg-[#F5F2EE] transition-colors">
-                        <Icon icon="lucide:repeat" width="20" />
+                     <button
+                     onclick={alternarBucle}
+                     class={`rounded-full p-3 transition-colors ${repetir ? 'bg-[#F8A5C2] text-[#68134A]' : 'text-[#85808C] hover:bg-[#F5F2EE]'}`}
+                     >
+                     <Icon icon="lucide:repeat" width="20" />
                     </button>
                 </div>
             </div>
