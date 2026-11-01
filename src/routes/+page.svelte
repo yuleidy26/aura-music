@@ -3,7 +3,8 @@
     import { estadocancion } from "#lib/state/cancion.svelte.js";
     import Icon from "@iconify/svelte";
     import axios from "axios";
-
+let reproductor;
+let reproduciendo = $state(false);
     const respuestacancion = axios.get(
         "https://leonardoapi.vercel.app/api/tracks"
     );
@@ -168,4 +169,10 @@
             </div>
         </div>
     </main>
+
+    <audio
+    bind:this={reproductor}
+    src={estadocancion.actual?.audio}
+    onended={() => reproduciendo = false}
+></audio>
 </section>
