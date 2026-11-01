@@ -142,7 +142,6 @@
         autoplay
     ></audio>
 {/if}
-
 <section class="min-h-screen bg-[#EDF1FD]">
     <main class="flex items-start justify-center gap-7 p-7">
         <!-- reproductor de musica -->
