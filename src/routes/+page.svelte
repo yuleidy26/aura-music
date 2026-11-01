@@ -1,33 +1,12 @@
 <script>
     import Cancion from "#lib/components/Cancion.svelte";
-    import { 
-        estadocancion, 
-        alternarReproduccion, 
-        inicializarLista, 
-        siguienteCancion, 
-        anteriorCancion, 
-        alternarAleatorio, 
-        alternarBucle 
-    } from "#lib/state/cancion.svelte.js";
+    import { estadocancion, alternarReproduccion } from "#lib/state/cancion.svelte.js";
     import Icon from "@iconify/svelte";
     import axios from "axios";
-    import { onMount } from "svelte";
 
-    let listaCanciones = $state([]);
-    let cargando = $state(true);
-
-    // Cargar las canciones al montar el componente de forma segura
-    onMount(async () => {
-        try {
-            const respuesta = await axios.get("https://leonardoapi.vercel.app/api/tracks");
-            listaCanciones = respuesta.data.tracks;
-            inicializarLista(listaCanciones);
-        } catch (error) {
-            console.error("Error al cargar las canciones:", error);
-        } finally {
-            cargando = false;
-        }
-    });
+    const respuestacancion = axios.get(
+        "https://leonardoapi.vercel.app/api/tracks"
+    );
 
     // Variables de control de audio
     let elementoAudio = $state(null);
@@ -61,16 +40,6 @@
             tiempoActual = nuevoTiempo;
         }
     }
-
-    // Manejar cuando termina una canción
-    function manejarFinCancion() {
-        if (estadocancion.bucle) {
-            elementoAudio.currentTime = 0;
-            elementoAudio.play().catch(console.error);
-        } else {
-            siguienteCancion();
-        }
-    }
 </script>
 
 <!-- Etiqueta Audio invisible conectada a los datos de la API -->
@@ -80,7 +49,7 @@
         src={estadocancion.actual.audio}
         bind:currentTime={tiempoActual}
         bind:duration={duracionTotal}
-        onended={manejarFinCancion}
+        onended={() => (estadocancion.reproduciendo = false)}
         autoplay
     ></audio>
 {/if}
@@ -88,6 +57,7 @@
 <section class="min-h-screen bg-[#EDF1FD]">
     <main class="flex items-start justify-center gap-7 p-7">
         <!-- reproductor de musica -->
+
         {#if estadocancion.actual}
         <div class="w-[600px] shrink-0 bg-white flex flex-col gap-6 rounded-[40px] p-9 shadow-sm">
             <!-- album -->
@@ -124,18 +94,12 @@
 
                 <div class="flex justify-center items-center gap-5 mt-4">
                     <!-- Aleatorio -->
-                    <button 
-                        onclick={alternarAleatorio}
-                        class="rounded-full p-3 transition-colors {estadocancion.aleatorio ? 'bg-pink-100 text-pink-500' : 'text-[#85808C] hover:bg-[#F5F2EE]'}"
-                    >
+                    <button class="rounded-full p-3 text-[#85808C] hover:bg-[#F5F2EE] transition-colors">
                         <Icon icon="lucide:shuffle" width="20" />
                     </button>
 
                     <!-- Canción anterior -->
-                    <button 
-                        onclick={anteriorCancion}
-                        class="rounded-full bg-[#F5F2EE] p-3 text-[#242124] hover:bg-[#EAE5E0] transition-colors"
-                    >
+                    <button class="rounded-full bg-[#F5F2EE] p-3 text-[#242124] hover:bg-[#EAE5E0] transition-colors">
                         <Icon icon="lucide:skip-back" width="20" />
                     </button>
 
@@ -152,18 +116,12 @@
                     </button>
 
                     <!-- Canción siguiente -->
-                    <button 
-                        onclick={siguienteCancion}
-                        class="rounded-full bg-[#F5F2EE] p-3 text-[#242124] hover:bg-[#EAE5E0] transition-colors"
-                    >
+                    <button class="rounded-full bg-[#F5F2EE] p-3 text-[#242124] hover:bg-[#EAE5E0] transition-colors">
                         <Icon icon="lucide:skip-forward" width="20" />
                     </button>
 
                     <!-- Repetir -->
-                    <button 
-                        onclick={alternarBucle}
-                        class="rounded-full p-3 transition-colors {estadocancion.bucle ? 'bg-pink-100 text-pink-500' : 'text-[#85808C] hover:bg-[#F5F2EE]'}"
-                    >
+                    <button class="rounded-full p-3 text-[#85808C] hover:bg-[#F5F2EE] transition-colors">
                         <Icon icon="lucide:repeat" width="20" />
                     </button>
                 </div>
@@ -180,20 +138,20 @@
             <div class="flex items-center justify-between w-full">
                 <div>
                     <h2 class="font-bold text-xl">Lista de Reproducción</h2>
-                    <p class="text-[#7B7582] text-xs">{listaCanciones.length} canciones • 14 min</p>
+                    <p class="text-[#7B7582] text-xs">4 canciones • 14 min</p>
                 </div>
             </div>
 
             <div class="flex flex-col gap-3 w-full">
-                {#if cargando}
+                {#await respuestacancion}
                     <div class="flex justify-center items-center py-4">
                         <div class="w-6 h-6 border-4 border-[#F8A5C2] border-t-transparent rounded-full animate-spin"></div>
                     </div>
-                {:else}
-                    {#each listaCanciones as cancion}
+                {:then respuestalista}
+                    {#each respuestalista.data.tracks as cancion}
                         <Cancion {cancion} />
                     {/each}
-                {/if}
+                {/await}
             </div>
         </div>
     </main>
