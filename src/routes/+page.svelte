@@ -1,32 +1,51 @@
 <script>
     import Cancion from "#lib/components/Cancion.svelte";
-    import { estadocancion, alternarReproduccion } from "#lib/state/cancion.svelte.js";
+    import {
+        estadocancion,
+        alternarReproduccion,
+        actualizarCancion
+    } from "#lib/state/cancion.svelte.js";
     import Icon from "@iconify/svelte";
     import axios from "axios";
 
+    // Lista de canciones
+    let listaCanciones = $state([]);
+
     const respuestacancion = axios.get(
         "https://leonardoapi.vercel.app/api/tracks"
-    );
+    ).then((respuesta) => {
+        listaCanciones = respuesta.data.tracks;
+        return respuesta;
+    });
 
     // Variables de control de audio
     let elementoAudio = $state(null);
     let tiempoActual = $state(0);
     let duracionTotal = $state(0);
 
+    // Modos del reproductor
+    let aleatorio = $state(false);
+    let repetir = $state(false);
+
     // Formatear segundos a mm:ss
     function formatearTiempo(segundos) {
         if (isNaN(segundos) || segundos === 0) return "00:00";
+
         const minutos = Math.floor(segundos / 60);
         const segsRestantes = Math.floor(segundos % 60);
+
         return `${minutos.toString().padStart(2, '0')}:${segsRestantes.toString().padStart(2, '0')}`;
     }
 
-    // Efecto para sincronizar la reproducción con la etiqueta <audio>
+    // Sincronizar reproducción con el audio
     $effect(() => {
         if (!elementoAudio || !estadocancion.actual) return;
 
         if (estadocancion.reproduciendo) {
-            elementoAudio.play().catch(console.error);
+            elementoAudio.play().catch((error) => {
+                console.error("No se pudo reproducir el audio:", error);
+                estadocancion.reproduciendo = false;
+            });
         } else {
             elementoAudio.pause();
         }
@@ -35,9 +54,79 @@
     // Mover barra de tiempo
     function cambiarTiempo(evento) {
         const nuevoTiempo = parseFloat(evento.target.value);
+
         if (elementoAudio) {
             elementoAudio.currentTime = nuevoTiempo;
             tiempoActual = nuevoTiempo;
+        }
+    }
+
+    // Buscar posición de la canción actual
+    function obtenerIndiceActual() {
+        return listaCanciones.findIndex(
+            (cancion) => cancion.id === estadocancion.actual?.id
+        );
+    }
+
+    // Siguiente canción
+    function siguienteCancion() {
+        if (listaCanciones.length === 0) return;
+
+        let indice = obtenerIndiceActual();
+
+        if (aleatorio && listaCanciones.length > 1) {
+            let nuevoIndice;
+
+            do {
+                nuevoIndice = Math.floor(Math.random() * listaCanciones.length);
+            } while (nuevoIndice === indice);
+
+            indice = nuevoIndice;
+        } else {
+            indice = (indice + 1) % listaCanciones.length;
+        }
+
+        actualizarCancion(listaCanciones[indice]);
+    }
+
+    // Canción anterior
+    function anteriorCancion() {
+        if (listaCanciones.length === 0) return;
+
+        if (elementoAudio && tiempoActual > 3) {
+            elementoAudio.currentTime = 0;
+            tiempoActual = 0;
+            return;
+        }
+
+        const indice = obtenerIndiceActual();
+        const anterior = (indice - 1 + listaCanciones.length) % listaCanciones.length;
+
+        actualizarCancion(listaCanciones[anterior]);
+    }
+
+    // Activar o desactivar aleatorio
+    function alternarAleatorio() {
+        aleatorio = !aleatorio;
+    }
+
+    // Activar o desactivar repetición
+    function alternarBucle() {
+        repetir = !repetir;
+    }
+
+    // Qué sucede al terminar una canción
+    function alTerminar() {
+        if (repetir) {
+            elementoAudio.currentTime = 0;
+            elementoAudio.play();
+            return;
+        }
+
+        if (obtenerIndiceActual() < listaCanciones.length - 1) {
+            siguienteCancion();
+        } else {
+            estadocancion.reproduciendo = false;
         }
     }
 </script>
@@ -49,7 +138,7 @@
         src={estadocancion.actual.audio}
         bind:currentTime={tiempoActual}
         bind:duration={duracionTotal}
-        onended={() => (estadocancion.reproduciendo = false)}
+        onended={alTerminar}
         autoplay
     ></audio>
 {/if}
@@ -94,13 +183,19 @@
 
                 <div class="flex justify-center items-center gap-5 mt-4">
                     <!-- Aleatorio -->
-                    <button class="rounded-full p-3 text-[#85808C] hover:bg-[#F5F2EE] transition-colors">
-                        <Icon icon="lucide:shuffle" width="20" />
+                     <button
+                     onclick={alternarAleatorio}
+                     class={`rounded-full p-3 transition-colors ${aleatorio ? 'bg-[#F8A5C2] text-[#68134A]' : 'text-[#85808C] hover:bg-[#F5F2EE]'}`}
+                     >
+                     <Icon icon="lucide:shuffle" width="20" />
                     </button>
-
+                    
                     <!-- Canción anterior -->
-                    <button class="rounded-full bg-[#F5F2EE] p-3 text-[#242124] hover:bg-[#EAE5E0] transition-colors">
-                        <Icon icon="lucide:skip-back" width="20" />
+                     <button
+                     onclick={anteriorCancion}
+                     class="rounded-full bg-[#F5F2EE] p-3 text-[#242124] hover:bg-[#EAE5E0] transition-colors"
+                     >
+                     <Icon icon="lucide:skip-back" width="20" />
                     </button>
 
                     <!-- Botón Reproducir / Pausar -->
@@ -116,8 +211,11 @@
                     </button>
 
                     <!-- Canción siguiente -->
-                    <button class="rounded-full bg-[#F5F2EE] p-3 text-[#242124] hover:bg-[#EAE5E0] transition-colors">
-                        <Icon icon="lucide:skip-forward" width="20" />
+                     <button
+                     onclick={siguienteCancion}
+                     class="rounded-full bg-[#F5F2EE] p-3 text-[#242124] hover:bg-[#EAE5E0] transition-colors"
+                     >
+                     <Icon icon="lucide:skip-forward" width="20" />
                     </button>
 
                     <!-- Repetir -->
