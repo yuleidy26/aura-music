@@ -11,10 +11,23 @@
     } from "#lib/state/cancion.svelte.js";
     import Icon from "@iconify/svelte";
     import axios from "axios";
+    import { onMount } from "svelte";
 
-    const respuestacancion = axios.get(
-        "https://leonardoapi.vercel.app/api/tracks"
-    );
+    let listaCanciones = $state([]);
+    let cargando = $state(true);
+
+    // Cargar las canciones al montar el componente de forma segura
+    onMount(async () => {
+        try {
+            const respuesta = await axios.get("https://leonardoapi.vercel.app/api/tracks");
+            listaCanciones = respuesta.data.tracks;
+            inicializarLista(listaCanciones);
+        } catch (error) {
+            console.error("Error al cargar las canciones:", error);
+        } finally {
+            cargando = false;
+        }
+    });
 
     // Variables de control de audio
     let elementoAudio = $state(null);
@@ -167,26 +180,20 @@
             <div class="flex items-center justify-between w-full">
                 <div>
                     <h2 class="font-bold text-xl">Lista de Reproducción</h2>
-                    <p class="text-[#7B7582] text-xs">4 canciones • 14 min</p>
+                    <p class="text-[#7B7582] text-xs">{listaCanciones.length} canciones • 14 min</p>
                 </div>
             </div>
 
             <div class="flex flex-col gap-3 w-full">
-                {#await respuestacancion}
+                {#if cargando}
                     <div class="flex justify-center items-center py-4">
                         <div class="w-6 h-6 border-4 border-[#F8A5C2] border-t-transparent rounded-full animate-spin"></div>
                     </div>
-                {:then respuestalista}
-                    <!-- Inicializamos la lista global al cargar los datos -->
-                    {(() => {
-                        inicializarLista(respuestalista.data.tracks);
-                        return '';
-                    })()}
-
-                    {#each respuestalista.data.tracks as cancion}
+                {:else}
+                    {#each listaCanciones as cancion}
                         <Cancion {cancion} />
                     {/each}
-                {/await}
+                {/if}
             </div>
         </div>
     </main>
