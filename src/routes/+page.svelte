@@ -8,22 +8,6 @@ let reproduciendo = $state(false);
     const respuestacancion = axios.get(
         "https://leonardoapi.vercel.app/api/tracks"
     );
-
-    const reproducirPausar = async () => {
-    if (!reproductor || !estadocancion.actual) return;
-
-    if (reproductor.paused) {
-        try {
-            await reproductor.play();
-            reproduciendo = true;
-        } catch (error) {
-            console.error("No se pudo reproducir el audio:", error);
-        }
-    } else {
-        reproductor.pause();
-        reproduciendo = false;
-    }
-};
 </script>
 
 <section class="min-h-screen bg-[#EDF1FD]">
@@ -85,9 +69,8 @@ let reproduciendo = $state(false);
                     <button
                         class="rounded-full bg-[#FF9FC3] p-5 text-[#68134A] shadow-lg shadow-pink-200 hover:bg-[#FF8DB8] transition-colors"
                     >
-                       <Icon
-                       icon={reproduciendo ? "lucide:pause" : "lucide:play"} 
-                       width="24"/>
+                        <Icon icon="lucide:pause" width="24" />
+                    </button>
 
                     <!-- Canción siguiente -->
                     <button
