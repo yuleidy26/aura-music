@@ -1,6 +1,6 @@
 <script lang="ts">
     import '../app.css';
-    import favicon from '#lib/assets/favicon.svg'; // <--- Cambiado de $lib a #lib
+    import favicon from '#lib/assets/favicon.svg';
     import type { LayoutProps } from './$types';
 
     let { children }: LayoutProps = $props();
@@ -13,8 +13,9 @@
 <header
     class="flex justify-between items-center px-6 py-4 border-b border-[#C9C6D9] bg-[#EDF1FD]"
 >
-    <div class="flex items-center gap-2">
-        <img src="/logo.webp" alt="Logo de Aura Music" class="w-8 h-8 object-contain" />
+    <div class="flex items-center gap-3">
+        
+        <img src="/logo.webp" alt="Logo de Aura Music" class="w-12 h-12 object-contain" />
         <span class="font-bold text-lg">Aura Music</span>
     </div>
 
