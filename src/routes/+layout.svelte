@@ -20,7 +20,7 @@
     </div>
 
     <div class="flex items-center gap-3 sm:gap-7 shrink-0">
-        <a href="" class="hidden sm:inline text-sm text-[#3F3A45] whitespace-nowrap">Crear cuenta</a>
+        <a href="" class="inline text-xs sm:text-sm text-[#3F3A45] whitespace-nowrap">Crear cuenta</a>
 
         <a
             href=""
