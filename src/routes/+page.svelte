@@ -304,7 +304,7 @@
             <div class="flex items-center justify-between w-full min-w-0">
                 <div class="min-w-0">
                     <h2 class="font-bold text-xl break-words">Lista de Reproducción</h2>
-                    <p class="text-[#7B7582] text-xs">4 canciones • 14 min</p>
+                    <p class="text-[#7B7582] text-xs">13 canciones • 1 h 06 min</p>
                 </div>
             </div>
 
