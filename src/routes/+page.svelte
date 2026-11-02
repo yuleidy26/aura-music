@@ -15,7 +15,8 @@
         "https://leonardoapi.vercel.app/api/tracks"
     ).then((respuesta) => {
         listaCanciones = respuesta.data.tracks;
-        return respuesta;
+        console.log(listaCanciones[0]);
+        return respuesta;;
     });
 
     // Variables de control de audio
