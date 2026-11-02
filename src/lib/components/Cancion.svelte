@@ -18,12 +18,12 @@
     <img
         src={cancion.album.image}
         alt={`Portada de ${cancion.artist.name}`}
-        class="w-12 h-12 rounded-lg object-cover"
+        class="w-12 h-12 shrink-0 rounded-lg object-cover"
     />
 
     <div class="flex-1 min-w-0">
-        <h3 class="font-semibold text-sm">{cancion.title}</h3>
-        <p class="text-xs text-[#7B7582]">{cancion.artist.name}</p>
+        <h3 class="font-semibold text-sm break-words">{cancion.title}</h3>
+        <p class="text-xs text-[#7B7582] break-words">{cancion.artist.name}</p>
     </div>
 
     <!-- <span class="text-xs text-[#7B7582]">{0}</span> -->
